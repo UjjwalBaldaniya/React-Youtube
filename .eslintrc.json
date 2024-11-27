@@ -1,7 +1,9 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -17,15 +19,62 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "prettier",
+    "@typescript-eslint",
+    "simple-import-sort",
+    "jsx-a11y"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "rules": {
-    "prettier/prettier": "error",
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    // Prettier integration
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+
+    // React-specific rules
+    "react/react-in-jsx-scope": "off", // Not needed with React 17+
+    "react/jsx-uses-vars": "error", // Prevent React components being marked as unused
+    "react/jsx-key": "error", // Ensure every list item has a unique key
+    "react/no-array-index-key": "warn", // Warn against using array indices as keys
+
+    // TypeScript-specific rules
+    "@typescript-eslint/no-explicit-any": "warn", // Avoid 'any' type
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_" }
+    ], // Allow unused variables starting with '_'
+    "@typescript-eslint/explicit-function-return-type": [
+      "warn",
+      {
+        "allowExpressions": true
+      }
+    ],
+
+    // Code quality and best practices
+    "eqeqeq": ["error", "always"], // Enforce strict equality
+    "no-console": "warn", // Warn on console statements
+    "no-debugger": "error", // Disallow debugger statements
+    "prefer-const": "error", // Enforce `const` where possible
+    "no-multi-spaces": "error", // Disallow multiple spaces
+    "no-trailing-spaces": "error", // Disallow trailing spaces
+
+    // Import sorting and organization
+    "simple-import-sort/imports": "error", // Sort imports
+    "simple-import-sort/exports": "error", // Sort exports
+
+    // Accessibility rules
+    "jsx-a11y/alt-text": "error", // Require alt text on images
+    "jsx-a11y/anchor-is-valid": "warn", // Warn about invalid anchor links
+    "jsx-a11y/click-events-have-key-events": "warn", // Enforce keyboard accessibility
+    "jsx-a11y/no-static-element-interactions": "warn" // Warn about static elements with event listeners
   }
 }
