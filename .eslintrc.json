@@ -47,11 +47,10 @@
     "react/no-array-index-key": "warn", // Warn against using array indices as keys
 
     // TypeScript-specific rules
-    "@typescript-eslint/no-explicit-any": "warn", // Avoid 'any' type
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { "argsIgnorePattern": "^_" }
-    ], // Allow unused variables starting with '_'
+    ],
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {

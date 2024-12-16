@@ -1,3 +1,4 @@
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
