@@ -5,9 +5,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { signIn } from "../../api/services/authService";
+import useRedirectAuthenticated from "../../hooks/useRedirectAuthenticated";
 import { ILoginFormInputs } from "../../types/auth.type";
 
 const SignIn: React.FC = () => {
+  useRedirectAuthenticated();
+
   const {
     register,
     handleSubmit,

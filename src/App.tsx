@@ -4,6 +4,7 @@ import { Box, CssBaseline } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import MainLayout from "./components/layout/MainLayout";
 import Sidebar from "./components/layout/Sidebar";
 import SignIn from "./Pages/auth/SignIn";
@@ -19,7 +20,9 @@ const App: React.FC = () => {
         <Sidebar />
         <MainLayout>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Home />} />
+            </Route>
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
           </Routes>

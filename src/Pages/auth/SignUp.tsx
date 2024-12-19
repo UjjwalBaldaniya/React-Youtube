@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 import { signUp } from "../../api/services/authService";
+import useRedirectAuthenticated from "../../hooks/useRedirectAuthenticated";
 import { IRegisterFormInputs } from "../../types/auth.type";
 
 const formStyles: SxProps = {
@@ -47,6 +48,8 @@ const registerFormSchema = Yup.object({
 });
 
 const SignUp: React.FC = () => {
+  useRedirectAuthenticated();
+
   const {
     register,
     handleSubmit,
