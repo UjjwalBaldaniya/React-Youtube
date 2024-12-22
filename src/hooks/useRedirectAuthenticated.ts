@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const useRedirectAuthenticated = (): void => {
   const navigate = useNavigate();
-  const authUser = localStorage.getItem("auth_token");
+  const isAuthenticated = localStorage.getItem("auth_token");
 
   useEffect(() => {
-    if (authUser) {
-      navigate("/");
+    if (isAuthenticated) {
+      navigate("/dashboard");
     }
-  }, [authUser, navigate]);
+  }, [isAuthenticated, navigate]);
 };
 
 export default useRedirectAuthenticated;
