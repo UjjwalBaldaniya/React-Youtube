@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 import { signUp } from "../../api/services/authService";
+import InputField from "../../components/InputField";
 import useRedirectAuthenticated from "../../hooks/useRedirectAuthenticated";
 import { IRegisterFormInputs } from "../../types/auth.type";
 
@@ -23,7 +24,7 @@ const formStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
   gap: 2,
-  border: "1px solid #ccc",
+  border: "1px solid #2f2f2f",
   borderRadius: 2,
   boxShadow: 1,
 };
@@ -80,37 +81,46 @@ const SignUp: React.FC = () => {
         Register
       </Typography>
 
-      <TextField
+      <InputField
         label="Full Name"
-        {...register("fullName")}
+        name="fullName"
+        type="text"
+        fullWidth
+        margin="normal"
+        register={register}
         error={!!errors.fullName}
         helperText={errors.fullName?.message}
-        fullWidth
       />
 
-      <TextField
+      <InputField
         label="Email"
-        {...register("email")}
+        name="email"
+        type="text"
+        fullWidth
+        margin="normal"
+        register={register}
         error={!!errors.email}
         helperText={errors.email?.message}
-        fullWidth
       />
-
-      <TextField
+      <InputField
         label="Username"
-        {...register("username")}
+        name="username"
+        type="text"
+        fullWidth
+        margin="normal"
+        register={register}
         error={!!errors.username}
         helperText={errors.username?.message}
-        fullWidth
       />
-
-      <TextField
+      <InputField
         label="Password"
-        type="password"
-        {...register("password")}
+        name="password"
+        type="text"
+        fullWidth
+        margin="normal"
+        register={register}
         error={!!errors.password}
         helperText={errors.password?.message}
-        fullWidth
       />
 
       <Box>

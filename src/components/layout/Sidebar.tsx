@@ -34,6 +34,7 @@ const Sidebar = (): JSX.Element => {
           width: isOpen ? drawerWidth : collapsedWidth,
           transition: "width 0.3s",
           overflowX: "hidden",
+          backgroundColor: "background.default",
         },
       }}
     >
@@ -46,7 +47,7 @@ const Sidebar = (): JSX.Element => {
         }}
       >
         <IconButton onClick={toggleDrawer}>
-          <MenuIcon />
+          <MenuIcon sx={{ color: "text.primary" }} />
         </IconButton>
       </Box>
 
@@ -54,19 +55,19 @@ const Sidebar = (): JSX.Element => {
       <List>
         <ListItem component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeIcon />
+            <HomeIcon sx={{ color: "text.primary" }} />
           </ListItemIcon>
           {isOpen && <ListItemText primary="Home" />}
         </ListItem>
         <ListItem component={Link} to={"/"}>
           <ListItemIcon>
-            <VideoLibraryIcon />
+            <VideoLibraryIcon sx={{ color: "text.primary" }} />
           </ListItemIcon>
           {isOpen && <ListItemText primary="Library" />}
         </ListItem>
         <ListItem component={Link} to={"/"}>
           <ListItemIcon>
-            <SubscriptionsIcon />
+            <SubscriptionsIcon sx={{ color: "text.primary" }} />
           </ListItemIcon>
           {isOpen && <ListItemText primary="Subscriptions" />}
         </ListItem>

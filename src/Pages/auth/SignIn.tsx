@@ -1,10 +1,12 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { signIn } from "../../api/services/authService";
+import CustomButton from "../../components/CustomButton";
+import InputField from "../../components/InputField";
 import useRedirectAuthenticated from "../../hooks/useRedirectAuthenticated";
 import { ILoginFormInputs } from "../../types/auth.type";
 
@@ -36,8 +38,9 @@ const SignIn: React.FC = () => {
         mx: "auto",
         mt: 5,
         p: 3,
-        boxShadow: 3,
+        border: "1px solid #2f2f2f",
         borderRadius: 2,
+        boxShadow: 1,
       }}
     >
       <Typography variant="h5" gutterBottom align="center">
@@ -45,31 +48,31 @@ const SignIn: React.FC = () => {
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+        <InputField
           label="Enter Email or Username"
+          name="emailOrUsername"
+          type="text"
           fullWidth
           margin="normal"
-          {...register("emailOrUsername", {
-            required: "Email or Username is required",
-          })}
+          register={register}
           error={!!errors.emailOrUsername}
           helperText={errors.emailOrUsername?.message}
         />
-
-        <TextField
+        <InputField
           label="Password"
+          name="password"
+          type="password"
           fullWidth
           margin="normal"
-          type="password"
-          {...register("password", { required: "Password is required" })}
+          register={register}
           error={!!errors.password}
           helperText={errors.password?.message}
         />
 
         <Box sx={{ mt: 2 }}>
-          <Button type="submit" variant="contained" fullWidth>
+          <CustomButton type="submit" variant="contained" fullWidth>
             Log In
-          </Button>
+          </CustomButton>
         </Box>
       </form>
     </Box>

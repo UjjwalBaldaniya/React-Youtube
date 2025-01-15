@@ -41,6 +41,7 @@
     ],
 
     // React-specific rules
+    "react/prop-types": "off",
     "react/react-in-jsx-scope": "off", // Not needed with React 17+
     "react/jsx-uses-vars": "error", // Prevent React components being marked as unused
     "react/jsx-key": "error", // Ensure every list item has a unique key
