@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
+import CreateVideo from "../pages/CreateVideo";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <MainLayout />,
-        children: [{ path: "", element: <Home /> }],
+        children: [
+          { path: "", element: <Home /> },
+          { path: "create-video", element: <CreateVideo /> },
+        ],
       },
     ],
   },

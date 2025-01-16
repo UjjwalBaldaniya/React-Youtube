@@ -8,6 +8,7 @@ interface CustomButtonProps {
   variant?: "contained" | "outlined" | "text";
   fullWidth?: boolean;
   disabled?: boolean;
+  startIcon?: JSX.Element;
   sx?: object;
 }
 
@@ -18,6 +19,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   variant = "contained",
   fullWidth = false,
   disabled = false,
+  startIcon,
   sx = {},
 }) => {
   return (
@@ -27,6 +29,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       variant={variant}
       fullWidth={fullWidth}
       disabled={disabled}
+      startIcon={startIcon}
       sx={sx}
     >
       {children}

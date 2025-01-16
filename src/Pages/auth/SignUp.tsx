@@ -1,18 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Box,
-  Button,
-  InputLabel,
-  SxProps,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, InputLabel, SxProps, TextField, Typography } from "@mui/material";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 import { signUp } from "../../api/services/authService";
+import CustomButton from "../../components/CustomButton";
 import InputField from "../../components/InputField";
 import useRedirectAuthenticated from "../../hooks/useRedirectAuthenticated";
 import { IRegisterFormInputs } from "../../types/auth.type";
@@ -145,9 +139,9 @@ const SignUp: React.FC = () => {
         />
       </Box>
 
-      <Button type="submit" variant="contained" color="primary">
-        Register
-      </Button>
+      <CustomButton type="submit" variant="contained" fullWidth>
+        Log In
+      </CustomButton>
     </Box>
   );
 };

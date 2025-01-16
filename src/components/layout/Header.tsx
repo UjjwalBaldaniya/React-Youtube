@@ -4,16 +4,23 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import {
   AppBar,
   Avatar,
-  Button,
   InputAdornment,
   TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import { collapsedWidth } from "../../constants";
+import CustomButton from "../CustomButton";
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCreateVideo = (): void => {
+    navigate("/dashboard/create-video");
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -72,10 +79,11 @@ const Header: React.FC = () => {
         />
 
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <Button
+          <CustomButton
+            type="button"
             variant="outlined"
-            color="inherit"
             startIcon={<AddIcon />}
+            onClick={handleCreateVideo}
             sx={{
               color: "white",
               borderColor: "background.default",
@@ -85,7 +93,7 @@ const Header: React.FC = () => {
             }}
           >
             Create
-          </Button>
+          </CustomButton>
 
           <Avatar
             alt="Cindy Baker"

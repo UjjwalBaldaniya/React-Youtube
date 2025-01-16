@@ -4,7 +4,6 @@ const axiosInstanceAuth = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json",
   },
 });
 
@@ -17,16 +16,12 @@ axiosInstanceAuth.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 axiosInstanceAuth.interceptors.response.use(
   (response) => response,
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default axiosInstanceAuth;
