@@ -59,7 +59,7 @@ const SignUp: React.FC = () => {
     formData.append("email", data.email);
     formData.append("username", data.username);
     formData.append("password", data.password);
-    if (data.avatar[0]) formData.append("avatar", data.avatar[0]);
+    if (data.avatar?.[0]) formData.append("avatar", data.avatar[0]);
     if (data.coverImage?.[0]) formData.append("coverImage", data.coverImage[0]);
 
     try {

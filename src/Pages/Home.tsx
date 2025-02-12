@@ -1,3 +1,4 @@
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Avatar,
@@ -9,97 +10,100 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { getVideos } from "../api/services/videoService";
+import { IGetVideo } from "../types/createVideo.types";
+import { timeAgo } from "../utils/dateFunc";
 
 const Home: React.FC = () => {
+  const [videosData, setVideosData] = useState<IGetVideo[]>([]);
+
+  const fetchVideosData = async (): Promise<void> => {
+    try {
+      const response = await getVideos();
+
+      if (response?.success && response?.data?.videos) {
+        setVideosData(response.data.videos);
+      }
+    } catch (error) {
+      setVideosData([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchVideosData();
+  }, []);
+
   return (
     <>
       <Box>
-        <Grid container>
-          <Grid item xs={12} sm={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image="https://i.ytimg.com/vi/p0EsltiWhUQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBGEQf8crydRrRAVDPGAFGGWAdu3g"
-                alt="Paella dish"
-              />
-              <CardContent sx={{ backgroundColor: "background.default" }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    This impressive paella is a perfect party dish and a fun
-                    meal to cook together with your guests. Add 1 cup of frozen
-                    peas along with the mussels, if you like.
-                  </Typography>
-                  <MoreVertIcon />
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image="https://i.ytimg.com/vi/p0EsltiWhUQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBGEQf8crydRrRAVDPGAFGGWAdu3g"
-                alt="Paella dish"
-              />
-              <CardContent sx={{ backgroundColor: "background.default" }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    This impressive paella is a perfect party dish and a fun
-                    meal to cook together with your guests. Add 1 cup of frozen
-                    peas along with the mussels, if you like.
-                  </Typography>
-                  <MoreVertIcon />
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image="https://i.ytimg.com/vi/p0EsltiWhUQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBGEQf8crydRrRAVDPGAFGGWAdu3g"
-                alt="Paella dish"
-              />
-              <CardContent sx={{ backgroundColor: "background.default" }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    This impressive paella is a perfect party dish and a fun
-                    meal to cook together with your guests. Add 1 cup of frozen
-                    peas along with the mussels, if you like.
-                  </Typography>
-                  <MoreVertIcon />
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image="https://i.ytimg.com/vi/p0EsltiWhUQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBGEQf8crydRrRAVDPGAFGGWAdu3g"
-                alt="Paella dish"
-              />
-              <CardContent sx={{ backgroundColor: "background.default" }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    This impressive paella is a perfect party dish and a fun
-                    meal to cook together with your guests. Add 1 cup of frozen
-                    peas along with the mussels, if you like.
-                  </Typography>
-                  <MoreVertIcon />
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
+        <Grid container spacing={2}>
+          {videosData.map((video, index) => {
+            const { thumbnail, title, ownerDetails, views, createdAt } =
+              video || {};
+            return (
+              <Grid item xs={12} sm={6} lg={4} key={index}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={thumbnail}
+                    alt={title}
+                  />
+                  <CardContent sx={{ backgroundColor: "background.default" }}>
+                    <Stack direction="row" alignItems="start" spacing={2}>
+                      <Avatar
+                        alt={ownerDetails.username}
+                        src={ownerDetails.avatar}
+                        sx={{ width: 36, height: 36 }}
+                      />
+                      <Stack direction="column" sx={{ flex: 1 }}>
+                        <Typography
+                          variant="h4"
+                          sx={{
+                            color: "text.primary",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >
+                          {title}
+                        </Typography>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                          }}
+                        >
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              color: "text.secondary",
+                            }}
+                          >
+                            {ownerDetails.username}
+                          </Typography>
+                          <CheckCircleIcon
+                            sx={{ width: "14px", height: "14px" }}
+                          />
+                        </Box>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary" }}
+                        >
+                          {`${views} views ~ ${timeAgo(createdAt)}`}
+                        </Typography>
+                      </Stack>
+                      <MoreVertIcon />
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Grid>
+            );
+          })}
         </Grid>
       </Box>
     </>

@@ -9,7 +9,11 @@ axiosInstance.interceptors.request.use(
   (config) => {
     config.headers = config.headers || {};
     config.headers.Accept = "application/json";
-    config.headers["Content-Type"] = "application/json";
+
+    if (!(config.data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
+    }
+
     return config;
   },
   (error) => {

@@ -26,3 +26,44 @@ export interface ICreateVideoResponse {
   message: string;
   success: boolean;
 }
+
+export interface OwnerDetails {
+  _id: string;
+  username: string;
+  email: string;
+  avatar: string;
+}
+
+export interface IGetVideo {
+  _id: string;
+  videoFile: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  duration: number;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+  ownerDetails: OwnerDetails;
+}
+
+export interface IPaginationDetails {
+  currentPage: number;
+  totalPages: number;
+  totalVideos: number;
+  limit: number;
+}
+
+interface IPaginatedResponse<T> {
+  videos: T[];
+  pagination: IPaginationDetails;
+}
+
+export interface IApiResponse<T> {
+  statusCode: number;
+  data: T;
+  message: string;
+  success: boolean;
+}
+
+export type IGetVideoResponse = IApiResponse<IPaginatedResponse<IGetVideo>>;

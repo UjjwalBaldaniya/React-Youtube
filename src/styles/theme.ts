@@ -27,8 +27,21 @@ const theme = createTheme({
       fontSize: "2rem",
       fontWeight: 500,
     },
+    h3: {
+      fontSize: "1.2rem",
+      fontWeight: 500,
+      lineHeight: "2.2rem",
+    },
+    h4: {
+      fontSize: "16px",
+      fontWeight: 500,
+      lineHeight: "1.4rem",
+    },
     body1: {
       fontSize: "1rem",
+    },
+    body2: {
+      fontSize: "14px",
     },
   },
   components: {
