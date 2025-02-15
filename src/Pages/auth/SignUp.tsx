@@ -21,6 +21,7 @@ const formStyles: SxProps = {
   border: "1px solid #2f2f2f",
   borderRadius: 2,
   boxShadow: 1,
+  mt: 10,
 };
 
 const registerFormSchema = Yup.object({
@@ -140,7 +141,7 @@ const SignUp: React.FC = () => {
       </Box>
 
       <CustomButton type="submit" variant="contained" fullWidth>
-        Log In
+        Sign up
       </CustomButton>
     </Box>
   );

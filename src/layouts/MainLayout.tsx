@@ -25,7 +25,7 @@ const MainLayout: React.FC = () => {
             overflow: "auto",
           }}
         >
-          <Header />
+          <Header fullWidth={false} />
           <Box sx={{ marginTop: "64px" }}>
             <Outlet />
           </Box>
