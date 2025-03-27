@@ -1,6 +1,9 @@
 // import apiService from "./apiService";
 
-import { IGetVideoResponse } from "../../types/createVideo.types";
+import {
+  IGetVideoByIdResponse,
+  IGetVideoResponse,
+} from "../../types/createVideo.types";
 import axiosInstanceAuth from "../interceptors/axiosInstanceAuth";
 
 interface VideoQueryParams {
@@ -16,6 +19,17 @@ export const getVideos = async (
 ): Promise<IGetVideoResponse | null> => {
   try {
     const response = await axiosInstanceAuth.get(`/videos`, { params });
+    return response?.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getVideoById = async (
+  id: string
+): Promise<IGetVideoByIdResponse | null> => {
+  try {
+    const response = await axiosInstanceAuth.get(`/videos/${id}`);
     return response?.data;
   } catch (error) {
     return null;

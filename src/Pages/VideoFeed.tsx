@@ -11,12 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getVideos } from "../api/services/videoService";
 import { IGetVideo } from "../types/createVideo.types";
 import { timeAgo } from "../utils/dateFunc";
 
-const Home: React.FC = () => {
+const VideoFeed: React.FC = () => {
+  const navigate = useNavigate();
+
   const [videosData, setVideosData] = useState<IGetVideo[]>([]);
 
   const fetchVideosData = async (): Promise<void> => {
@@ -29,6 +32,10 @@ const Home: React.FC = () => {
     } catch (error) {
       setVideosData([]);
     }
+  };
+
+  const handleNavigate = (id: string): void => {
+    navigate(`/${id}`);
   };
 
   useEffect(() => {
@@ -44,7 +51,7 @@ const Home: React.FC = () => {
               video || {};
             return (
               <Grid item xs={12} sm={6} lg={4} key={index}>
-                <Card>
+                <Card onClick={() => handleNavigate(video._id)}>
                   <CardMedia
                     component="img"
                     height="200"
@@ -110,4 +117,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default VideoFeed;

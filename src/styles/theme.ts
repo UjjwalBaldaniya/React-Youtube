@@ -28,13 +28,13 @@ const theme = createTheme({
       fontWeight: 500,
     },
     h3: {
-      fontSize: "1.2rem",
-      fontWeight: 500,
-      lineHeight: "2.2rem",
+      // used
+      fontSize: "20px",
+      lineHeight: "1.8rem",
     },
     h4: {
+      // used
       fontSize: "16px",
-      fontWeight: 500,
       lineHeight: "1.4rem",
     },
     body1: {

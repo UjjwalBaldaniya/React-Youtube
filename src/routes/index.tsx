@@ -5,9 +5,11 @@ import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
 import CreateVideo from "../pages/CreateVideo";
 import NotFound from "../pages/NotFound";
+import VideoDetail from "../pages/VideoDetail";
+import VideoFeed from "../pages/VideoFeed";
 import ProtectedRoute from "./ProtectedRoute";
 
-const Home = lazy(() => import("../pages/Home"));
+const Home = lazy(() => import("../pages/VideoFeed"));
 const SignIn = lazy(() => import("../pages/auth/SignIn"));
 const SignUp = lazy(() => import("../pages/auth/SignUp"));
 
@@ -23,7 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    children: [{ path: "", element: <Home /> }],
+    children: [
+      { path: "", element: <VideoFeed /> },
+      { path: "/:id", element: <VideoDetail /> },
+    ],
   },
   {
     path: "/dashboard",

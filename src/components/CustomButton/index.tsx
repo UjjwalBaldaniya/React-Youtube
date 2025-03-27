@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import React from "react";
 
 interface CustomButtonProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   variant?: "contained" | "outlined" | "text";

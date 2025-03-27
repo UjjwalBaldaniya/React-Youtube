@@ -67,3 +67,5 @@ export interface IApiResponse<T> {
 }
 
 export type IGetVideoResponse = IApiResponse<IPaginatedResponse<IGetVideo>>;
+
+export type IGetVideoByIdResponse = IApiResponse<IGetVideo>;
