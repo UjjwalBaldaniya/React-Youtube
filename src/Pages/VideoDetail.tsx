@@ -5,7 +5,12 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import {
+  getChannelSubscribers,
+  subscribeToChannel,
+} from "../api/services/subscribeService";
 import { getVideoById, getVideos } from "../api/services/videoService";
 import CustomButton from "../components/CustomButton";
 import { IGetVideo } from "../types/createVideo.types";
@@ -25,10 +30,13 @@ const VideoDetail: React.FC = () => {
 
   const [video, setVideo] = useState<IGetVideo>();
   const [videosData, setVideosData] = useState<IGetVideo[]>([]);
+  const [isSubscribed, setIsSubscribed] = useState<boolean>();
+
+  const userId = localStorage.getItem("user_id");
 
   const { videoFile, title, ownerDetails } = video || {};
 
-  const fetchVideoById = async (id: string): Promise<void> => {
+  const fetchVideoById = async (id: string): Promise<void | null> => {
     try {
       const response = await getVideoById(id);
 
@@ -36,7 +44,7 @@ const VideoDetail: React.FC = () => {
         setVideo(response.data);
       }
     } catch (error) {
-      console.log("🚀 ~ fetchVideoById ~ error:", error);
+      return null;
     }
   };
 
@@ -52,10 +60,45 @@ const VideoDetail: React.FC = () => {
     }
   };
 
+  const handleSubscribe = async (): Promise<void> => {
+    try {
+      if (!video?.ownerDetails._id) {
+        toast.error("ID is undefined. Cannot proceed.");
+        return;
+      }
+      const response = await subscribeToChannel(video?.ownerDetails._id);
+      if (response) setIsSubscribed(!!response?.data);
+    } catch (error) {
+      toast.error("ID is undefined. Cannot proceed.");
+    }
+  };
+
+  const getUserChannelSubscribers = async (
+    id: string
+  ): Promise<void | null> => {
+    try {
+      const response = await getChannelSubscribers(id);
+      if (response) {
+        const hasSubscribed = response?.data.some(
+          (value) => value.subscriberId === userId
+        );
+
+        setIsSubscribed(hasSubscribed);
+      }
+    } catch (error) {
+      return null;
+    }
+  };
+
   useEffect(() => {
     fetchVideoById(id || "");
     fetchVideosData();
   }, [id]);
+
+  useEffect(() => {
+    const channelId = video?.ownerDetails._id;
+    if (channelId) getUserChannelSubscribers(channelId);
+  }, [video]);
 
   if (!video) return <p>Loading...</p>;
 
@@ -103,8 +146,9 @@ const VideoDetail: React.FC = () => {
                     backgroundColor: "white",
                     textTransform: "none",
                   }}
+                  onClick={handleSubscribe}
                 >
-                  Subscribe
+                  {isSubscribed ? "Subscribed" : "Subscribe"}
                 </CustomButton>
               </Stack>
 
